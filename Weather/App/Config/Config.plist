@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Dev</key>
+	<dict>
+		<key>ServicesURL</key>
+		<string>https://api.openweathermap.org/data/2.5</string>
+		<key>Mocking</key>
+		<false/>
+		<key>OpenWeatherAPIKey</key>
+		<string>cd81e57616692459d50d22524b4da974</string>
+		<key>MockServicesURL</key>
+		<string></string>
+	</dict>
+	<key>Prod</key>
+	<dict>
+		<key>ServicesURL</key>
+		<string>https://api.openweathermap.org/data/2.5</string>
+		<key>MockServicesURL</key>
+		<string></string>
+		<key>Mocking</key>
+		<false/>
+		<key>OpenWeatherAPIKey</key>
+		<string></string>
+	</dict>
+</dict>
+</plist>
