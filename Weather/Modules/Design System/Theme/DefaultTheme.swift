@@ -37,127 +37,112 @@ struct DefaultScheme: Schemes {
 }
 
 struct DefaultDarkColorTheme: ColorTheme {
-    var background1: Color {
-        return Color("background1").opacity(0.8)
-    }
-
-    var bottomSheetBackground1: Color {
-        return Color("Background 1").opacity(0.26)
-    }
     
-    var weatherWidgetBackground: Color {
-        return Color("weatherWidgetBackground2")
+    var background1: Color {
+        return Color("background").opacity(0.7)
     }
     
     var background2: Color {
-        return Color("background2")
-    }
-
-    var bottomSheetBackground2: Color {
-        return Color("background2").opacity(0.26)
-    }
-
-    var tabBarBackground1: Color {
-        return Color("tabBarBackground1")
+        return Color("background")
     }
     
-    var tabBarBackground2: Color {
-        return Color("tabBarBackground2")
+    var bottomSheetBackground: Color {
+        return Color("bottomSheetBackground").opacity(0.26)
+    }
+    
+    var weatherWidgetBackground: Color {
+        return Color("weatherWidgetBackground")
     }
 
+    var tabBarBackground: Color {
+        return Color("tabBarBackground")
+    }
+    
     var shadow: Color {
-        return .black
+        return Color("shadow")
     }
 
     var secondary: Color {
-        return .white
+        return Color("secondary")
     }
 
     var primary: Color {
-        return .white
+        return Color("primary")
     }
 
     var title: Color {
-        return .white
-    }
-
-    var subtitle: Color {
-        return .white
+        return Color("titles")
     }
 
     var body: Color {
-        return .white
+        return Color("texts")
     }
 
     var label: Color {
-        return .white
+        return Color("texts")
     }
     
-    var regularText: Color {
-        return .white
+    var border: Color {
+        return Color("borders")
+    }
+    
+    var navigationText: Color {
+        return Color("navigationText")
     }
 }
 
 struct DefaultColorTheme: ColorTheme {
     
     var background1: Color {
-        return Color("background1").opacity(0.8)
+        return Color("background").opacity(0.7)
+    }
+    
+    var background2: Color {
+        return Color("background")
     }
 
-    var bottomSheetBackground1: Color {
-        return Color("background1").opacity(0.26)
+    var bottomSheetBackground: Color {
+        return Color("bottomSheetBackground")
     }
 
     var weatherWidgetBackground: Color {
-        return Color("weatherWidgetBackground1")
-    }
-
-    var background2: Color {
-        return Color("background2")
-    }
-
-    var bottomSheetBackground2: Color {
-        return Color("background2").opacity(0.26)
+        return Color("weatherWidgetBackground")
     }
     
-    var tabBarBackground1: Color {
-        return Color("tabBarBackground1")
-    }
-    
-    var tabBarBackground2: Color {
-        return Color("tabBarBackground2")
+    var tabBarBackground: Color {
+        return Color("tabBarBackground")
     }
 
     var shadow: Color {
-        return .black
+        return Color("shadow")
     }
 
     var secondary: Color {
-        return .purple
+        return Color("secondary")
     }
 
     var primary: Color {
-        return .white
+        return Color("primary")
     }
 
     var title: Color {
-        return .white
-    }
-
-    var subtitle: Color {
-        return .white
+        return Color("titles")
     }
 
     var body: Color {
-        return .white
+        return Color("texts")
     }
 
     var label: Color {
-        return .white
+        return Color("texts")
     }
     
-    var regularText: Color {
-        return .white
+    var border: Color {
+        return Color("borders")
+    }
+    
+    var navigationText: Color {
+        return Color("navigationText")
     }
 }
 
@@ -175,7 +160,7 @@ struct DefaultFontTheme: FontTheme {
     }
     
     var bodyFont: Font {
-        return Font.system(size: 16, weight: .regular)
+        return Font.system(size: 24, weight: .regular)
     }
 
     var buttonFont: Font {
@@ -183,7 +168,11 @@ struct DefaultFontTheme: FontTheme {
     }
 
     var labelFont: Font {
-        return Font.system(size: 16, weight: .regular)
+        return Font.system(size: 14, weight: .regular)
+    }
+    
+    var captionFont: Font {
+        return Font.system(size: 12, weight: .regular)
     }
 }
 
@@ -225,7 +214,7 @@ struct DefaultIconTheme: IconTheme {
     }
     
     var thermometer: Image {
-        return Image(systemName: "cloud.thermometer")
+        return Image(systemName: "thermometer.medium")
     }
     
     var humidity: Image {
@@ -238,5 +227,9 @@ struct DefaultIconTheme: IconTheme {
     
     var gauge: Image {
         return Image(systemName: "gauge")
+    }
+    
+    var paintpalette: Image {
+        return Image(systemName: "paintpalette.fill")
     }
 }

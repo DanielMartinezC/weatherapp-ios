@@ -20,12 +20,14 @@ struct WeatherDetailView: View {
     var body: some View {
         let _ = Self._printChanges()
         ZStack {
+                        
             LinearGradient(
                 gradient: Gradient(colors: [themeProvider.theme.colorTheme.background1, themeProvider.theme.colorTheme.background2]), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+            
             VStack(spacing: 5) {
                 VStack {
                     if let currentWeather = viewModel.currentWeather {
-                        Text(currentWeather.locationName)
+                        Text(currentWeather.location.description)
                             .titleStyle()
                             .padding(.top, 60)
                         
@@ -55,7 +57,7 @@ struct WeatherDetailView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     WeatherDashboardView
-                        .backgroundBlur(radius: 25, opaque: true)
+                        .backgroundBlur(radius: 40, opaque: true)
                 }
                 .coordinateSpace(name: "scroll")
             }
@@ -63,7 +65,6 @@ struct WeatherDetailView: View {
         .animation(.easeInOut, value: currentWeatherInfoExpanded)
         .task {
             await viewModel.fetchWeather()
-            await viewModel.fetchAirPollution()
         }
     }
 }
@@ -82,31 +83,17 @@ extension WeatherDetailView {
             
             if let currentWeather = viewModel.currentWeather {
 
-                if let currentAirPollution = viewModel.currentAirPollution {
+                if let pollutionAqi = currentWeather.aqi,
+                   let pollutionRisk = currentWeather.risk,
+                   let pollutionAqiNumber = currentWeather.aqiNumber {
                     AirPollutionView(
-                        value: currentAirPollution.aqi,
-                        risk: currentAirPollution.risk,
-                        aqiNumber: currentAirPollution.aqiNumber
+                        value: pollutionAqi,
+                        risk: pollutionRisk,
+                        aqiNumber: pollutionAqiNumber
                     )
-                    .shadow(color: .black.opacity(0.3), radius: 30, x:0, y: 10)
                 }
-
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    SunEventsView(sunrise: currentWeather.sunrise, sunset: currentWeather.sunset)
-                    WindView(value: currentWeather.windSpeed)
-                    if let rain = currentWeather.rain {
-                        RainfallView(value: rain)
-                    }
-                    if let snow = currentWeather.snow {
-                        SnowView(value: snow)
-                    }
-                    FeelsLikeView(value: currentWeather.temperatureFeelsLike)
-                    HumidityView(value: currentWeather.humidity)
-                    VisibilityView(value: currentWeather.visibility)
-                    PressureView(value: currentWeather.pressure)
-                }
-                .frame(maxWidth: .infinity)
-                .shadow(color: .black.opacity(0.3), radius: 30, x:0, y: 10)
+                
+                WeatherMetricsView(currentWeather: currentWeather)
             }
         }
         .padding()
@@ -148,7 +135,7 @@ struct LocationWeatherDetailView_Previews: PreviewProvider {
     }
 }
 
-struct LocationWeatherDetailViewError_Previews: PreviewProvider {
+struct LocationWeatherDetailViewSecondary_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = WeatherDetailViewModel(for: .myLocation)
         InjectedValues[\.weatherRepository] = WeatherRepositoryMockSecondScenario()

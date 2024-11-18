@@ -12,10 +12,11 @@ extension Color {
         case primary
         case secondary
         // Grayscale
-        case subtitles
+        case navigationText
         case texts
         case titles
         case shadow
+        case borders
     }
     
     static func schemeColor(for color: WeatherColor, scheme: UIUserInterfaceStyle) -> Color {

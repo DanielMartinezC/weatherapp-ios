@@ -28,5 +28,9 @@ public extension View {
         return modifier(LabelStyle(foregroundColor))
     }
     
+    func captionStyle(_ foregroundColor: Color? = nil) -> some View {
+        return modifier(CaptionStyle(foregroundColor))
+    }
+    
 }
 

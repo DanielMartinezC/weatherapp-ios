@@ -13,7 +13,7 @@ class DeveloperPreview {
     private init() {}
     
     let weatherWithRainAndSnow = CurrentWeatherDetailModel(
-        locationName: "Montevideo",
+        location: .city(city: City(id: "montevideo", name: "Montevideo", latitude: -34.9011, longitude: -56.1645)),
         item: CurrentWeatherResponse(
             name: "Montevideo",
             main: CurrentWeatherResponse.Main(
@@ -40,7 +40,7 @@ class DeveloperPreview {
         )
     
     let weatherWithoutRainAndSnow = CurrentWeatherDetailModel(
-        locationName: "Montevideo",
+        location: .city(city: City(id: "montevideo", name: "Montevideo", latitude: -34.9011, longitude: -56.1645)),
         item: CurrentWeatherResponse(
             name: "Montevideo",
             main: CurrentWeatherResponse.Main(
@@ -65,7 +65,7 @@ class DeveloperPreview {
         )
     
     let locationWeatherItem = LocationWeatherItemModel(
-        location: .myLocation,
+        location: .city(city: City(id: "montevideo", name: "Montevideo", latitude: -34.9011, longitude: -56.1645)),
         item: CurrentWeatherResponse(
             name: "Montevideo",
             main: CurrentWeatherResponse.Main(

@@ -38,183 +38,41 @@ struct GreenishSchemes: Schemes {
 
 struct GreenishDarkColorTheme: ColorTheme {
     var background1: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
+        return Color(red: 28/255, green: 43/255, blue: 41/255).opacity(0.7)
     }
     
-    var bottomSheetBackground1: Color {
+    var background2: Color {
+        return Color(red: 28/255, green: 43/255, blue: 41/255)
+    }
+    
+    var bottomSheetBackground: Color {
         return elevatedBackground
     }
     
     var elevatedBackground: Color {
-        return Color(
-            uiColor: .systemYellow.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
+        return Color(red: 15/255, green: 26/255, blue: 24/255)
     }
     
     var weatherWidgetBackground: Color {
-        return Color(
-            uiColor: .systemYellow.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
+        return Color(red: 99/255, green: 216/255, blue: 192/255)
     }
     
-    var background2: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
-    }
-    
-    var bottomSheetBackground2: Color {
-        return elevatedBackground
-    }
-    
-    var tabBarBackground1: Color {
-        return Color(
-            uiColor: .systemGreen.withAlphaComponent(0.5).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
-    }
-    
-    var tabBarBackground2: Color {
-        return Color(
-            uiColor: .systemGreen.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
+    var tabBarBackground: Color {
+        return Color(red: 15/255, green: 26/255, blue: 24/255)
     }
     
     var primary: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
+        return Color(red: 99/255, green: 216/255, blue: 192/255)
     }
     
     var secondary: Color {
-        return Color(uiColor:
-            .systemGreen.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
-    }
-    
-    var title: Color {
-        return Color.schemeColor(for: .titles, scheme: .dark)
-    }
-    
-    var subtitle: Color {
-        return Color.schemeColor(for: .subtitles, scheme: .dark)
-    }
-    
-    var body: Color {
-        return Color.schemeColor(for: .texts, scheme: .dark)
-    }
-    
-    var label: Color {
-        return Color.schemeColor(for: .texts, scheme: .dark)
-    }
-    
-    var regularText: Color {
-        return Color.schemeColor(for: .texts, scheme: .dark)
-    }
-    
-    var shadow: Color {
-        return Color.schemeColor(for: .shadow, scheme: .dark)
-    }
-}
-
-struct GreenishColorTheme: ColorTheme {
-    var background1: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var bottomSheetBackground1: Color {
-        return elevatedBackground
-    }
-    
-    var elevatedBackground: Color {
-        return Color(
-            uiColor: .systemYellow.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var background2: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var bottomSheetBackground2: Color {
-        return elevatedBackground
-    }
-    
-    var weatherWidgetBackground: Color {
-        return Color(
-            uiColor: .systemYellow.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var tabBarBackground1: Color {
-        return Color(
-            uiColor: .systemGreen.withAlphaComponent(0.5).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var tabBarBackground2: Color {
-        return Color(
-            uiColor: .systemGreen.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .dark)
-            )
-        )
-    }
-    
-    var primary: Color {
-        return Color(
-            uiColor: .systemGreen.resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
-    }
-    
-    var secondary: Color {
-        return Color(uiColor:
-            .systemGreen.withAlphaComponent(0.7).resolvedColor(
-                with: UITraitCollection(userInterfaceStyle: .light)
-            )
-        )
+        return Color(red: 212/255, green: 230/255, blue: 81/255)
     }
     
     var title: Color {
         return Color.schemeColor(for: .titles, scheme: .light)
     }
     
-    var subtitle: Color {
-        return Color.schemeColor(for: .subtitles, scheme: .light)
-    }
-    
     var body: Color {
         return Color.schemeColor(for: .texts, scheme: .light)
     }
@@ -223,19 +81,81 @@ struct GreenishColorTheme: ColorTheme {
         return Color.schemeColor(for: .texts, scheme: .light)
     }
     
-    var regularText: Color {
-        return Color.schemeColor(for: .texts, scheme: .light)
+    var shadow: Color {
+        return Color.schemeColor(for: .shadow, scheme: .light)
+    }
+    
+    var border: Color {
+        return Color.schemeColor(for: .borders, scheme: .light)
+    }
+    
+    var navigationText: Color {
+        return Color.schemeColor(for: .navigationText, scheme: .dark)
+    }
+}
+
+struct GreenishColorTheme: ColorTheme {
+    var background1: Color {
+        return .white
+    }
+    
+    var background2: Color {
+        return Color(red: 28/255, green: 43/255, blue: 41/255).opacity(0.5)
+    }
+    
+    var bottomSheetBackground: Color {
+        return elevatedBackground
+    }
+    
+    var elevatedBackground: Color {
+        return Color(red: 15/255, green: 26/255, blue: 24/255)
+    }
+    
+    var weatherWidgetBackground: Color {
+        return Color(red: 99/255, green: 216/255, blue: 192/255)
+    }
+    
+    var tabBarBackground: Color {
+        return Color(red: 15/255, green: 26/255, blue: 24/255)
+    }
+    
+    var primary: Color {
+        return Color(red: 99/255, green: 216/255, blue: 192/255)
+    }
+    
+    var secondary: Color {
+        return Color(red: 212/255, green: 230/255, blue: 81/255)
+    }
+    
+    var title: Color {
+        return  Color(red: 28/255, green: 43/255, blue: 41/255)
+    }
+    
+    var body: Color {
+        return  Color(red: 28/255, green: 43/255, blue: 41/255)
+    }
+    
+    var label: Color {
+        return  Color(red: 28/255, green: 43/255, blue: 41/255)
     }
     
     var shadow: Color {
         return Color.schemeColor(for: .shadow, scheme: .light)
+    }
+    
+    var border: Color {
+        return Color(red: 28/255, green: 43/255, blue: 41/255).opacity(0.3)
+    }
+    
+    var navigationText: Color {
+        return Color.schemeColor(for: .navigationText, scheme: .light)
     }
 }
 
 struct GreenishFontTheme: FontTheme {
     
     var titleFont: Font {
-        return Font.custom(Fonts.bold.rawValue, size: 40)
+        return Font.custom(Fonts.bold.rawValue, size: 36)
     }
     
     var subtitleFont: Font {
@@ -243,11 +163,11 @@ struct GreenishFontTheme: FontTheme {
     }
     
     var headlineFont: Font {
-        return Font.custom(Fonts.bold.rawValue, size: 18)
+        return Font.custom(Fonts.bold.rawValue, size: 96)
     }
     
     var bodyFont: Font {
-        return Font.custom(Fonts.regular.rawValue, size: 16)
+        return Font.custom(Fonts.regular.rawValue, size: 24)
     }
     
     var buttonFont: Font {
@@ -255,6 +175,10 @@ struct GreenishFontTheme: FontTheme {
     }
     
     var labelFont: Font {
-        return Font.custom(Fonts.medium.rawValue, size: 16)
+        return Font.custom(Fonts.medium.rawValue, size: 14)
+    }
+    
+    var captionFont: Font {
+        return Font.custom(Fonts.medium.rawValue, size: 12)
     }
 }

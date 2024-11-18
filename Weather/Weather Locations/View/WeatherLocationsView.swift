@@ -7,27 +7,19 @@
 
 import SwiftUI
 
-extension View {
-    @available(iOS 14, *)
-    func navigationBarTitleTextColor(_ color: Color) -> some View {
-        let uiColor = UIColor(color)
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: uiColor ]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
-        return self
-    }
-}
-
 struct WeatherLocationsView: View {
     @EnvironmentObject private var themeProvider: ThemeProvider
     @StateObject var viewModel: WeatherLocationsViewModel
+    
+    @State private var showTheme = false
     
     var body: some View {
         NavigationView {
             ZStack {
                 
-                themeProvider.theme.colorTheme.background1
-                    .ignoresSafeArea()
-                
+                LinearGradient(
+                    gradient: Gradient(colors: [themeProvider.theme.colorTheme.background1, themeProvider.theme.colorTheme.background2]), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
+                                
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(spacing: 10) {
                         ForEach(viewModel.locationsWeather, id: \.self) { location in
@@ -37,7 +29,20 @@ struct WeatherLocationsView: View {
                 }
             }
             .navigationTitle("Weather")
-            .navigationBarTitleTextColor(themeProvider.theme.colorTheme.title)
+            .navigationBarTitleTextColor(themeProvider.theme.colorTheme.navigationText)
+            .background(
+                NavigationLink(destination: ThemesView(), isActive: $showTheme) {
+                    EmptyView()
+                }
+                )
+            .toolbar {
+                Button {
+                    showTheme = true
+                } label: {
+                    themeProvider.theme.iconTheme.paintpalette
+                        .foregroundStyle(themeProvider.theme.colorTheme.navigationText)
+                }
+            }
         }
         .task {
             await viewModel.loadLocationsWeather()

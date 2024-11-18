@@ -20,24 +20,19 @@ public protocol Schemes {
 }
 
 public protocol ColorTheme {
-    
     var background1: Color { get }
-    var bottomSheetBackground1: Color { get }
-    var weatherWidgetBackground: Color { get }
     var background2: Color { get }
-    var bottomSheetBackground2: Color { get }
-    var tabBarBackground1: Color { get }
-    var tabBarBackground2: Color { get }
-    
+    var bottomSheetBackground: Color { get }
+    var weatherWidgetBackground: Color { get }
+    var tabBarBackground: Color { get }
     var primary: Color { get }
     var secondary: Color { get }
     var title: Color { get }
-    var subtitle: Color { get }
     var body: Color { get }
     var label: Color { get }
-    var regularText: Color { get }
     var shadow: Color { get }
-    
+    var border: Color { get }
+    var navigationText: Color { get }
 }
 
 public protocol FontTheme {
@@ -46,6 +41,7 @@ public protocol FontTheme {
     var headlineFont: Font { get }
     var bodyFont: Font { get }
     var labelFont: Font { get }
+    var captionFont: Font { get }
 }
 
 public protocol IconTheme {
@@ -62,4 +58,5 @@ public protocol IconTheme {
     var humidity: Image { get }
     var eye: Image { get }
     var gauge: Image { get }
+    var paintpalette: Image { get }
 }

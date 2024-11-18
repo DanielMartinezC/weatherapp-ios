@@ -32,6 +32,7 @@ struct DefaultIconsShowRoomView: View {
                 IconItem(name: "sunrise", image: iconTheme.sunrise),
                 IconItem(name: "thermometer", image: iconTheme.thermometer),
                 IconItem(name: "wind", image: iconTheme.wind),
+                IconItem(name: "paintpalette", image: iconTheme.paintpalette),
             ]
         )
     }

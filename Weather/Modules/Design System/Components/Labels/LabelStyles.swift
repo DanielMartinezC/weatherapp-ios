@@ -80,3 +80,20 @@ struct LabelStyle: ViewModifier {
             .foregroundColor(foregroundColor ?? themeProvider.theme.colorTheme.label)
     }
 }
+
+struct CaptionStyle: ViewModifier {
+    @EnvironmentObject private var themeProvider: ThemeProvider
+    
+    let foregroundColor: Color?
+    
+    init(_ foregroundColor: Color? = nil) {
+        self.foregroundColor = foregroundColor
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .font(themeProvider.theme.fontTheme.captionFont)
+            .foregroundColor(foregroundColor ?? themeProvider.theme.colorTheme.body)
+    }
+}
+

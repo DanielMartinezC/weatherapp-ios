@@ -76,7 +76,7 @@ private extension ThemesView {
                     .bodyStyle()
                 Spacer()
                 themeProvider.theme.iconTheme.chevronRight
-                    .foregroundColor(themeProvider.theme.colorTheme.body)
+                    .foregroundColor(themeProvider.theme.colorTheme.label)
             }
             
             Divider()
