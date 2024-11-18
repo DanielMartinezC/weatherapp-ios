@@ -20,7 +20,6 @@ class WeatherDetailViewModel: ObservableObject {
     
     @Published private(set) var errorMessage: String?
     @Published private(set) var currentWeather: CurrentWeatherDetailModel?
-    @Published private(set) var currentAirPollution: CurrentAirPollutionDetailModel?
     
     private(set) var currentUserLocation: CLLocation?
     private var locationError: LocationError? {
@@ -45,14 +44,7 @@ extension WeatherDetailViewModel {
             await requestLocationWhenInUse()
             await fetchCurrentLocation()
         }
-        await fetchWeather(for: location)
-    }
-    
-    func fetchAirPollution() async {
-        if currentUserLocation == nil {
-            await fetchCurrentLocation()
-        }
-        await fetchAirPollution(for: location)
+        await fetchWeatherDetail(for: location)
     }
 }
 
@@ -79,7 +71,7 @@ private extension WeatherDetailViewModel {
         }
     }
     
-    func fetchWeather(for location: WeatherLocation) async {
+    func fetchWeatherDetail(for location: WeatherLocation) async {
         do {
             switch location {
             case .myLocation:
@@ -87,36 +79,19 @@ private extension WeatherDetailViewModel {
                     locationError = .unableToDetermineLocation
                     return
                 }
-                let response = try await weatherRepository
+                async let weatherInformationResponse = weatherRepository
                     .getCurrentWeather(for: currentUserLocation.coordinate.latitude, and: currentUserLocation.coordinate.longitude)
-                self.currentWeather = CurrentWeatherDetailModel(locationName: location.description, item: response)
-            case .city(let city):
-                let response = try await weatherRepository.getCurrentWeather(for: city.name)
-                self.currentWeather = CurrentWeatherDetailModel(locationName: location.description, item: response)
-            }
-        } catch {
-            errorMessage = "Failed to fetch weather: \(error)"
-        }
-    }
-    
-    func fetchAirPollution(for location: WeatherLocation) async {
-        do {
-            switch location {
-            case .myLocation:
-                guard let currentUserLocation = currentUserLocation else {
-                    locationError = .unableToDetermineLocation
-                    return
-                }
-                let response = try await weatherRepository
+                async let airPollutionResponse = weatherRepository
                     .getAirPollution(for: currentUserLocation.coordinate.latitude, and: currentUserLocation.coordinate.longitude)
-                self.currentAirPollution = CurrentAirPollutionDetailModel(locationName: location.description, item: response)
+                self.currentWeather = try await CurrentWeatherDetailModel(location: location, item: weatherInformationResponse, pollution: airPollutionResponse)
             case .city(let city):
-                let response = try await weatherRepository
+                async let weatherInformationResponse = weatherRepository.getCurrentWeather(for: city.name)
+                async let airPollutionResponse = weatherRepository
                     .getAirPollution(for: city.latitude, and: city.longitude)
-                self.currentAirPollution = CurrentAirPollutionDetailModel(locationName: location.description, item: response)
+                self.currentWeather = try await CurrentWeatherDetailModel(location: location, item: weatherInformationResponse, pollution: airPollutionResponse)
             }
         } catch {
-            errorMessage = "Failed to fetch weather: \(error)"
+            errorMessage = "Failed to fetch weather detail: \(error)"
         }
     }
 }

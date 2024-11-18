@@ -8,8 +8,10 @@
 import Foundation
 
 struct CurrentWeatherDetailModel {
+    private(set) var location: WeatherLocation
     private let item: CurrentWeatherResponse
-    private(set) var locationName: String
+    private let pollution: AirPollutionResponse?
+    private let temperatureRange: Double = 2.0
     
     var temperature: String {
       return String(format: "%.1fº", item.main.temp)
@@ -26,6 +28,16 @@ struct CurrentWeatherDetailModel {
     var temperatureFeelsLike: String {
         return String(format: "%.1fº", item.main.feelsLike)
     }
+    
+    var temperatureFeelsLikeDescription: String {
+        if item.main.feelsLike < (item.main.temp - temperatureRange) {
+            return item.wind.speed > 5 ? "Wind is making it feel cooler." : "It's a bit chilly."
+        } else if item.main.feelsLike > (item.main.temp + temperatureRange) {
+            return "The temperature feels warmer than it actually is."
+        } else {
+            return  "Similar to the actual temperature."
+        }
+    }
 
     var description: String {
         return item.weather.first?.description.capitalized ?? String.empty
@@ -33,6 +45,16 @@ struct CurrentWeatherDetailModel {
     
     var humidity: String {
         return String(format: "%d %", item.main.humidity)
+    }
+    
+    var dewPointDescription: String {
+        let a = 17.27
+        let b = 237.7
+
+        let gamma = log(Double(item.main.humidity)/100) + (a * item.main.temp) / (b + item.main.temp)
+        let dewPoint = (b * gamma) / (a - gamma)
+        
+        return String(format: "The dew point is %.1fº right now.", dewPoint)
     }
     
     var pressure: String {
@@ -55,33 +77,59 @@ struct CurrentWeatherDetailModel {
         return String(format: "%d km", item.visibility/1000)
     }
     
-    var rain: String? {
-        guard let rain = item.rain else {
-            return nil
+    var visibilityDescription: String {
+        if item.visibility >= 10000 {
+            return "Perfectly clear view."
+        } else {
+            return "Something is affecting visibility."
         }
-        return String(format: "%.2f mm/h", rain.oneHour)
     }
     
-    var snow: String? {
-        guard let snow = item.snow else {
-            return nil
+    var rain: String {
+        return String(format: "%.2f mm", item.rain?.oneHour ?? 0)
+    }
+    
+    var snow: String {
+        return String(format: "%.2f mm", item.snow?.oneHour ?? 0)
+    }
+    
+    var aqi: String? {
+        if let aqi = pollution?.list.first?.main.aqi {
+            return String(format: "%d", aqi)
         }
-        return String(format: "%.2f mm/h", snow.oneHour)
+        return nil
+    }
+    
+    var aqiNumber: Int? {
+        if let aqi = pollution?.list.first?.main.aqi {
+            return aqi
+        }
+        return nil
+    }
+    
+    var risk: String? {
+        if let aqi = pollution?.list.first?.main.aqi {
+            switch aqi {
+            case 1:
+                return "Very Low"
+            case 2:
+                return "Low"
+            case 3:
+                return "Moderate"
+            case 4:
+                return "High"
+            case 5:
+                return "Very High"
+            default:
+                return "Undefined"
+            }
+        }
+        return nil
     }
 
-    enum WeatherDetailInfo: Hashable {
-        case humidity
-        case minTemperature
-        case maxTemperature
-        case temperature
-    }
-
-    var weatherDetails: Array<String> {
-        [humidity, minTemperature, maxTemperature, temperature]
-    }
-
-    init(locationName: String, item: CurrentWeatherResponse) {
+    init(location: WeatherLocation, item: CurrentWeatherResponse, pollution: AirPollutionResponse? = nil) {
         self.item = item
-        self.locationName = locationName
+        self.location = location
+        self.pollution = pollution
     }
 }
