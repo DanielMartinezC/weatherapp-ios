@@ -59,6 +59,7 @@ struct WeatherDetailView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         StatusView(
                             status: .error,
+                            message: String.locationUnauthorizedHelpMessage,
                             fullScreen: false,
                             primaryActionTitle: String.goToSettings,
                             primaryAction: goToSettings
