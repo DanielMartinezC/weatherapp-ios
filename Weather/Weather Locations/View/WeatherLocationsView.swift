@@ -45,7 +45,7 @@ struct WeatherLocationsView: View {
                     }
                 }
             }
-            .navigationTitle("Weather")
+            .navigationTitle(String.weatherLocationTitle)
             .navigationBarTitleTextColor(themeProvider.theme.colorTheme.navigationText)
             .background(
                 NavigationLink(destination: ThemesView(), isActive: $showTheme) {

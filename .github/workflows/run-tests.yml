@@ -21,6 +21,7 @@ jobs:
           
       - name: Run Tests on iPhone 16 Simulator (iOS 18.0)
         run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData
           xcodebuild test \
           -scheme "Weather - Dev" \
           -sdk iphonesimulator \
