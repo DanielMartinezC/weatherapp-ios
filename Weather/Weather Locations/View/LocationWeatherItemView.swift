@@ -29,7 +29,7 @@ struct LocationWeatherItemView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         // MARK: Forecast Temperature Range
                         Text("H:\(location.maxTemperature) L:\(location.minTemperature)")
-                            .font(.footnote)
+                            .captionStyle()
                         
                         // MARK: Forecast Location
                         Text(location.location.description)
