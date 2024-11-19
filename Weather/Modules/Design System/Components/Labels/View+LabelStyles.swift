@@ -32,5 +32,9 @@ public extension View {
         return modifier(CaptionStyle(foregroundColor))
     }
     
+    func buttonLabelStyle(foregroundColor: Color) -> some View {
+        return modifier(ButtonLabelStyle(foregroundColor: foregroundColor))
+    }
+    
 }
 

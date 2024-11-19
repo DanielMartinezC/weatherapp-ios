@@ -97,3 +97,13 @@ struct CaptionStyle: ViewModifier {
     }
 }
 
+struct ButtonLabelStyle: ViewModifier {
+    @EnvironmentObject private var themeProvider: ThemeProvider
+    var foregroundColor: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .font(themeProvider.theme.fontTheme.buttonFont)
+            .foregroundColor(foregroundColor)
+    }
+}

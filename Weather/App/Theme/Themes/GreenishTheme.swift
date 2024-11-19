@@ -19,6 +19,10 @@ struct GreenishTheme: Theme {
         return GreenishFontTheme()
     }
     
+    public var buttonTheme: ButtonTheme {
+        return DefaultTheme().buttonTheme
+    }
+    
     var iconTheme: IconTheme {
         return DefaultTheme().iconTheme
     }
@@ -57,8 +61,8 @@ struct GreenishDarkColorTheme: ColorTheme {
         return Color(red: 99/255, green: 216/255, blue: 192/255)
     }
     
-    var tabBarBackground: Color {
-        return Color(red: 15/255, green: 26/255, blue: 24/255)
+    var tabBarIcon: Color {
+        return Color(red: 85/255, green: 96/255, blue: 94/255)
     }
     
     var primary: Color {
@@ -115,7 +119,7 @@ struct GreenishColorTheme: ColorTheme {
         return Color(red: 99/255, green: 216/255, blue: 192/255)
     }
     
-    var tabBarBackground: Color {
+    var tabBarIcon: Color {
         return Color(red: 15/255, green: 26/255, blue: 24/255)
     }
     

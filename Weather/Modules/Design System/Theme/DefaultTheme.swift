@@ -18,6 +18,10 @@ public struct DefaultTheme: Theme {
         return DefaultFontTheme()
     }
     
+    public var buttonTheme: ButtonTheme {
+        return DefaultButtonTheme()
+    }
+    
     public var iconTheme: IconTheme {
         return DefaultIconTheme()
     }
@@ -54,8 +58,8 @@ struct DefaultDarkColorTheme: ColorTheme {
         return Color("weatherWidgetBackground")
     }
 
-    var tabBarBackground: Color {
-        return Color("tabBarBackground")
+    var tabBarIcon: Color {
+        return Color("tabBarIcon")
     }
     
     var shadow: Color {
@@ -109,8 +113,8 @@ struct DefaultColorTheme: ColorTheme {
         return Color("weatherWidgetBackground")
     }
     
-    var tabBarBackground: Color {
-        return Color("tabBarBackground")
+    var tabBarIcon: Color {
+        return Color("tabBarIcon")
     }
 
     var shadow: Color {
@@ -173,6 +177,24 @@ struct DefaultFontTheme: FontTheme {
     
     var captionFont: Font {
         return Font.system(size: 12, weight: .regular)
+    }
+}
+
+struct DefaultButtonTheme: ButtonTheme {
+    var height: CGFloat {
+        return 44
+    }
+    
+    var cornerRadius: CGFloat {
+        return 6
+    }
+    
+    var padding: CGFloat {
+        return 10
+    }
+    
+    var borderWidth: CGFloat {
+        return 1
     }
 }
 

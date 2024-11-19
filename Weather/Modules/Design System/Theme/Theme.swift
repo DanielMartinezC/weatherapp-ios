@@ -11,6 +11,7 @@ public protocol Theme {
     var schemes: Schemes { get }
     var colorTheme: ColorTheme { get set }
     var fontTheme: FontTheme { get }
+    var buttonTheme: ButtonTheme { get }
     var iconTheme: IconTheme { get }
 }
 
@@ -24,7 +25,7 @@ public protocol ColorTheme {
     var background2: Color { get }
     var bottomSheetBackground: Color { get }
     var weatherWidgetBackground: Color { get }
-    var tabBarBackground: Color { get }
+    var tabBarIcon: Color { get }
     var primary: Color { get }
     var secondary: Color { get }
     var title: Color { get }
@@ -42,6 +43,14 @@ public protocol FontTheme {
     var bodyFont: Font { get }
     var labelFont: Font { get }
     var captionFont: Font { get }
+    var buttonFont: Font { get }
+}
+
+public protocol ButtonTheme {
+    var height: CGFloat { get }
+    var cornerRadius: CGFloat { get }
+    var padding: CGFloat { get }
+    var borderWidth: CGFloat { get }
 }
 
 public protocol IconTheme {

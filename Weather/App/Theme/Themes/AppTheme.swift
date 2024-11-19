@@ -18,6 +18,10 @@ struct AppTheme: Theme {
         return DefaultFontTheme()
     }
     
+    var buttonTheme: ButtonTheme {
+        return DefaultButtonTheme()
+    }
+    
     var iconTheme: IconTheme {
         return DefaultIconTheme()
     }
