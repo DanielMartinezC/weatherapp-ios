@@ -56,24 +56,36 @@ class WeatherLocationsViewModel: ObservableObject {
     }
     
     func fetchData() async throws -> [LocationWeatherItemModel]  {
-        try await withThrowingTaskGroup(of: (WeatherLocation, CurrentWeatherResponse).self) { group in
+        try await withThrowingTaskGroup(of: (WeatherLocation, CurrentWeatherResponse?, Error?).self) { group in
             for location in availableLocations {
                 group.addTask {
                     if location == .myLocation {
                         await self.requestLocationWhenInUse()
                         await self.fetchCurrentLocation()
                     }
-                    let weather = try await self.fetchWeather(for: location)
-                    return (location, weather)
+                    
+                    do {
+                        let weather = try await self.fetchWeather(for: location)
+                        return (location, weather, nil) // Successful fetch
+                    } catch let error {
+                        Logger().error("Failed to fetch weather for \(location.description): \(error.localizedDescription)")
+                        return (location, nil, error) // Return error
+                    }
                 }
             }
-                    
+            
             var locationsWeather = [LocationWeatherItemModel]()
-                    
-            for try await (location, weather) in group {
-                locationsWeather.append(.init(location: location, item: weather))
+            
+            // Process the results of the tasks
+            for try await (location, weather, error) in group {
+                if let weather = weather {
+                    locationsWeather.append(.init(location: location, item: weather))
+                } else if let error = error {
+                    // Handle or log the error for this particular location if needed
+                    Logger().error("Weather data for \(location.description) could not be fetched: \(error.localizedDescription)")
+                }
             }
-                    
+            
             return locationsWeather
         }
     }
@@ -125,7 +137,7 @@ private extension WeatherLocationsViewModel {
 }
 
 extension WeatherLocationsViewModel {
-    enum State {
+    enum State: Equatable {
         case idle
         case loading
         case loaded
