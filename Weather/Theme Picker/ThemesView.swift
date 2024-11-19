@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ThemesView: View {
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @EnvironmentObject var appDelegate: AppDelegate
     @EnvironmentObject var themeProvider: ThemeProvider
     
     @Environment(\.dismiss) private var dismiss
