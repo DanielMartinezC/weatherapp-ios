@@ -7,36 +7,19 @@
 
 import Foundation
 
-
-class TabBarSettings: ObservableObject {
-    
-    public enum Tab: Int {
-        case detail = 0
-        case list = 1
-        case undefined = -1
-    }
-
-    @Published public var selectedTab: Int = Tab.detail.rawValue
-    
-    public init() {}
-    
-    func isDetailTabSelected() -> Bool {
-        selectedTab == Tab.detail.rawValue
-    }
-}
-
-
 @MainActor
 class WeatherTabViewModel: ObservableObject {
     
-    public enum Tab: Int {
+    enum Tab: Int {
         case detail = 0
         case locations = 1
     }
     
+    // MARK: - Properties
     private(set) var availableLocations: [WeatherLocation]
     @Published var selectedLocation: WeatherLocation?
     
+    // MARK: - Init
     init() {
         let locations: [WeatherLocation] = WeatherLocation.availableLocations
         
@@ -50,7 +33,10 @@ class WeatherTabViewModel: ObservableObject {
         // Set the selectedLocation based on the first item
         self.selectedLocation = availableLocations.first
     }
-    
+}
+
+// MARK: - Public
+extension WeatherTabViewModel {
     func saveSelectedLocation(_ location: WeatherLocation) {
         UserDefaultsUtil.shared.save(location.id, forKey: AppStorageConstants.userLastSelectedLocation.rawValue)
     }

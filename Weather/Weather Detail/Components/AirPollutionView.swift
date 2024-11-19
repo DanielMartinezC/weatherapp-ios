@@ -17,7 +17,7 @@ struct AirPollutionView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline, spacing: 5) {
-                Image(systemName: "aqi.medium")
+                themeProvider.theme.iconTheme.aqi
                     .captionStyle(themeProvider.theme.colorTheme.label.opacity(0.4))
                 Text("AIR POLLUTION")
                     .captionStyle(themeProvider.theme.colorTheme.label.opacity(0.4))

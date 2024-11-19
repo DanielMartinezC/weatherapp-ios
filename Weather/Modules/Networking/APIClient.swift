@@ -10,8 +10,6 @@ import os
 
 // MARK: - APIClient
 
-// TODO: Add retry for no connection (internet)
-
 final class APIClient {
     typealias Response = (data: Data, response: HTTPURLResponse)
     
