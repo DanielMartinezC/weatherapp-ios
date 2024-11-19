@@ -21,10 +21,8 @@ jobs:
           
       - name: Run Tests on iPhone 16 Simulator (iOS 18.0)
         run: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData
           xcodebuild test \
           -scheme "Weather - Dev" \
           -sdk iphonesimulator \
           -destination "platform=iOS Simulator,name=iPhone 16,OS=18.0" \
           CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-          -verbose
