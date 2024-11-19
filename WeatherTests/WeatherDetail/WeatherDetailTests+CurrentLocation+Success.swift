@@ -16,7 +16,7 @@ final class WeatherViewModelCurrentLocationTests: XCTestCase {
     
     private let expectedCurrentCoordinates = (latitude: -34.901, longitude: -56.1645)
     private var expectedCurrentLocationWeatherDetail = CurrentWeatherDetailModel(
-        locationName: WeatherLocation.myLocation.description,
+        location: WeatherLocation.myLocation,
         item: CurrentWeatherResponse(
             name: "My Location",
             main: CurrentWeatherResponse.Main(

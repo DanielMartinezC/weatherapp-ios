@@ -15,7 +15,7 @@ final class WeatherViewModelFailureTests: XCTestCase {
 
     private var location = WeatherLocation.myLocation
     private var expectedWeatherDetail = CurrentWeatherDetailModel(
-        locationName: WeatherLocation.myLocation.description,
+        location: WeatherLocation.myLocation,
         item: CurrentWeatherResponse(
             name: "My Location",
             main: CurrentWeatherResponse.Main(
