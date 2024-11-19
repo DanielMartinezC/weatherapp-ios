@@ -18,15 +18,14 @@ struct WeatherDetailView: View {
     var scrollTopYPosition: Double = -60.0
         
     var body: some View {
-        let _ = Self._printChanges()
         ZStack {
-                        
+            
             LinearGradient(
                 gradient: Gradient(colors: [themeProvider.theme.colorTheme.background1, themeProvider.theme.colorTheme.background2]), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
             
-            VStack(spacing: 5) {
-                VStack {
-                    if let currentWeather = viewModel.currentWeather {
+            if let currentWeather = viewModel.currentWeather {
+                VStack(spacing: 5) {
+                    VStack {
                         Text(currentWeather.location.description)
                             .titleStyle()
                             .padding(.top, 60)
@@ -48,20 +47,27 @@ struct WeatherDetailView: View {
                             
                         }
                         .frame(maxHeight: currentWeatherInfoExpanded ? 140 : 40)
-                    } else {
-                        Text("-")
-                            .titleStyle()
-                            .padding(.top, 60)
                     }
+                    ScrollView(.vertical, showsIndicators: false) {
+                        WeatherDashboardView
+                            .backgroundBlur(radius: 40, opaque: true)
+                    }
+                    .coordinateSpace(name: "scroll")
                 }
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    WeatherDashboardView
-                        .backgroundBlur(radius: 40, opaque: true)
+            }  else {
+                if viewModel.isLocationNotAuthorized() {
+                    VStack(alignment: .leading, spacing: 20) {
+                        StatusView(
+                            status: .error,
+                            fullScreen: false,
+                            primaryActionTitle: String.goToSettings,
+                            primaryAction: goToSettings
+                        ).padding()
+                    }.padding()
+                } else {
+                    StatusView(status: .loading)
                 }
-                .coordinateSpace(name: "scroll")
-            }
-        }
+            }        }
         .animation(.easeInOut, value: currentWeatherInfoExpanded)
         .task {
             await viewModel.fetchWeather()
@@ -126,6 +132,19 @@ extension WeatherDetailView {
         }
     }
 }
+
+private extension WeatherDetailView {
+    func goToSettings() {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(
+                settingsURL,
+                options: [:],
+                completionHandler: nil
+            )
+        }
+    }
+}
+
 #if DEBUG
 struct LocationWeatherDetailView_Previews: PreviewProvider {
     static var previews: some View {

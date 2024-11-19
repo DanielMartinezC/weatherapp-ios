@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreLocation
+import os
 
 @MainActor
 class WeatherLocationsViewModel: ObservableObject {
@@ -15,25 +16,26 @@ class WeatherLocationsViewModel: ObservableObject {
     @Injected(\.weatherRepository) var weatherRepository: WeatherRepository
     @Injected(\.locationRepository) var locationRepository: LocationRepository
     
+    @Published var state: State = .idle
+    
     var availableLocations: [WeatherLocation] = WeatherLocation.availableLocations
-    
-    @Published var locationsWeather: [LocationWeatherItemModel] = []
-    @Published private(set) var errorMessage: String?
-    
+    private(set) var locationsWeather: [LocationWeatherItemModel] = []
+    private(set) var errorMessage: String?
     private(set) var currentUserLocation: CLLocation?
-    private var locationError: LocationError? {
-        didSet {
-            if locationError != nil {
-                errorMessage = locationError?.localizedDescription
-            }
-        }
-    }
+    private(set) var locationError: LocationError?
     
     init() {}
     
     func loadLocationsWeather() async {
         do {
+            state = .loading
+            errorMessage = nil
             let locationsWeather = try await self.fetchData()
+            if locationsWeather.isEmpty {
+                errorMessage = String.noWeatherDataHelpMessage
+                state = .error(showMessage: true)
+                return
+            }
             self.locationsWeather = locationsWeather.sorted { (lhs, rhs) in
                 // First, prioritize `.myLocation` over other locations
                 if lhs.location == .myLocation && rhs.location != .myLocation {
@@ -46,8 +48,10 @@ class WeatherLocationsViewModel: ObservableObject {
                 // If both are `.myLocation` or both are other locations, sort by location id
                 return lhs.id < rhs.id
             }
+            state = .loaded
         } catch(let error) {
-            errorMessage = error.localizedDescription
+            Logger().error("\(error.localizedDescription)")
+            state = .error(showMessage: false)
         }
     }
     
@@ -114,8 +118,17 @@ private extension WeatherLocationsViewModel {
                 return response
             }
         } catch(let error) {
-            errorMessage = "Failed to fetch weather for \(location.description): \(error)"
+            Logger().error("Failed to fetch weather for \(location.description): \(error)")
             throw error
         }
+    }
+}
+
+extension WeatherLocationsViewModel {
+    enum State {
+        case idle
+        case loading
+        case loaded
+        case error(showMessage: Bool)
     }
 }

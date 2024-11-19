@@ -22,13 +22,7 @@ class WeatherDetailViewModel: ObservableObject {
     @Published private(set) var currentWeather: CurrentWeatherDetailModel?
     
     private(set) var currentUserLocation: CLLocation?
-    private var locationError: LocationError? {
-        didSet {
-            if locationError != nil {
-                errorMessage = locationError?.localizedDescription
-            }
-        }
-    }
+    @Published private(set) var locationError: LocationError?
     
     // MARK: Init
     init(for location: WeatherLocation) {
@@ -40,11 +34,14 @@ class WeatherDetailViewModel: ObservableObject {
 extension WeatherDetailViewModel {
     func fetchWeather() async {
         if location == .myLocation {
-            locationError = nil
             await requestLocationWhenInUse()
             await fetchCurrentLocation()
         }
         await fetchWeatherDetail(for: location)
+    }
+    
+    func isLocationNotAuthorized() -> Bool {
+        locationError == .unauthorized
     }
 }
 
@@ -76,7 +73,6 @@ private extension WeatherDetailViewModel {
             switch location {
             case .myLocation:
                 guard let currentUserLocation = currentUserLocation else {
-                    locationError = .unableToDetermineLocation
                     return
                 }
                 async let weatherInformationResponse = weatherRepository
