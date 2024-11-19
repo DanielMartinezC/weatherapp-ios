@@ -13,6 +13,8 @@ import os
 @MainActor
 class WeatherLocationsViewModel: ObservableObject {
     
+    // MARK: - Properties
+    
     @Injected(\.weatherRepository) var weatherRepository: WeatherRepository
     @Injected(\.locationRepository) var locationRepository: LocationRepository
     
@@ -24,8 +26,12 @@ class WeatherLocationsViewModel: ObservableObject {
     private(set) var currentUserLocation: CLLocation?
     private(set) var locationError: LocationError?
     
+    // MARK: - Init
     init() {}
-    
+}
+
+// MARK: Public Methods
+extension WeatherLocationsViewModel {
     func loadLocationsWeather() async {
         do {
             state = .loading
@@ -54,6 +60,10 @@ class WeatherLocationsViewModel: ObservableObject {
             state = .error(showMessage: false)
         }
     }
+}
+
+// MARK: Services
+private extension WeatherLocationsViewModel {
     
     func fetchData() async throws -> [LocationWeatherItemModel]  {
         try await withThrowingTaskGroup(of: (WeatherLocation, CurrentWeatherResponse?, Error?).self) { group in
@@ -89,10 +99,7 @@ class WeatherLocationsViewModel: ObservableObject {
             return locationsWeather
         }
     }
-}
-
-// MARK: Services
-private extension WeatherLocationsViewModel {
+    
     func requestLocationWhenInUse() async {
         do {
             try await locationRepository.requestWhenInUseAuthorization()
@@ -136,6 +143,7 @@ private extension WeatherLocationsViewModel {
     }
 }
 
+// MARK: - State
 extension WeatherLocationsViewModel {
     enum State: Equatable {
         case idle
