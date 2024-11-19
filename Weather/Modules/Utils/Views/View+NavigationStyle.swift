@@ -14,4 +14,9 @@ extension View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
         return self
     }
+    
+    func navigationTabBarStyle(unselectedItemColor: Color) -> some View {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(unselectedItemColor)
+        return self
+    }
 }

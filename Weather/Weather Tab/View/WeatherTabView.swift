@@ -43,13 +43,8 @@ struct WeatherTabView: View {
                 .tag(1)
                 
             }
-            .onAppear {
-                setupTransparentBottomTabBar()
-            }
-//            .onReceive(themeProvider.objectWillChange) { _ in
-//                setupTransparentBottomTabBar()
-//            }
-            .accentColor(themeProvider.theme.colorTheme.navigationText)
+            .accentColor(themeProvider.theme.colorTheme.tabBarIcon)
+            .navigationTabBarStyle(unselectedItemColor: themeProvider.theme.colorTheme.tabBarIcon.opacity(0.4))
             .overlay(
                 tabBarSettings.isDetailTabSelected() ?
                     RoundedRectangle(cornerRadius: 20)
@@ -61,17 +56,7 @@ struct WeatherTabView: View {
                     : nil
                 , alignment: .bottom
             )
-            }
-    }
-    
-    private func setupTransparentBottomTabBar() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundEffect = UIBlurEffect(style: .systemMaterialLight)
-        UITabBar.appearance().unselectedItemTintColor = UIColor(themeProvider.theme.colorTheme.navigationText.opacity(0.2))
-        
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-        UITabBar.appearance().standardAppearance = appearance
+        }
     }
 }
 
@@ -83,7 +68,7 @@ extension WeatherTabView {
                 let currentPage = location == viewModel.selectedLocation
                 themeProvider.theme.iconTheme.circle
                     .font(Font.system(size: 8))
-                    .foregroundStyle( currentPage ? themeProvider.theme.colorTheme.navigationText : themeProvider.theme.colorTheme.navigationText.opacity(0.2))
+                    .foregroundStyle( currentPage ? themeProvider.theme.colorTheme.tabBarIcon : themeProvider.theme.colorTheme.tabBarIcon.opacity(0.4))
                     .animation(.easeInOut, value: viewModel.selectedLocation)
             }
             Spacer()
