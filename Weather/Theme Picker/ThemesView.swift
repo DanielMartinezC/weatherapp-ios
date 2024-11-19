@@ -51,7 +51,12 @@ struct ThemesView: View {
                             Button {
                                 appDelegate.appConfiguration.changeAppIcon(icon)
                             } label: {
-                                Text(icon)
+                                Image(uiImage: UIImage(named: "\(icon)Display") ?? UIImage())
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(10)
+                                    .shadow(radius: 5)
                             }
                         }
                     }
@@ -73,7 +78,7 @@ private extension ThemesView {
         VStack(spacing: 16) {
             HStack {
                 Text("Use \(theme.name) theme")
-                    .bodyStyle()
+                    .subtitleStyle()
                 Spacer()
                 themeProvider.theme.iconTheme.chevronRight
                     .foregroundColor(themeProvider.theme.colorTheme.label)
