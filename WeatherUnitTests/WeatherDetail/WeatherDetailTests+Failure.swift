@@ -63,7 +63,7 @@ final class WeatherViewModelFailureTests: XCTestCase {
         await viewModel.fetchWeather()
         XCTAssertNil(viewModel.currentUserLocation, "User Location should be nil when a location errors ocurrs.")
         XCTAssertNil(viewModel.currentWeather, "Weather data should be nil on error.")
-        XCTAssertNotNil(viewModel.errorMessage, "Error message shouldn't be nil.")
+        XCTAssertNotNil(viewModel.locationError, "Location error shouldn't be nil.")
     }
     
     func testFetchWeatherData_Failure() async throws{

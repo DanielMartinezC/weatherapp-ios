@@ -37,8 +37,26 @@ final class WeatherViewModelCurrentLocationTests: XCTestCase {
             wind: CurrentWeatherResponse.Wind(speed: 2.57, deg: 40),
             clouds: CurrentWeatherResponse.Clouds(all: 92),
             sys: CurrentWeatherResponse.Sys(sunrise: 1731568648, sunset: 1731600763)
-            )
+        ),
+        pollution: AirPollutionResponse(
+            list: [
+                AirPollutionResponse.PollutionData(
+                    dt: 1605182400,
+                    main: AirPollutionResponse.PollutionData.Main(aqi: 1),
+                    components: AirPollutionResponse.PollutionData.Components(
+                        co: 201.94053649902344,
+                        no: 0.01877197064459324,
+                        no2: 0.7711350917816162,
+                        o3: 68.66455078125,
+                        so2: 0.6407499313354492,
+                        pm2Point5: 0.5,
+                        pm10: 0.540438711643219,
+                        nh3: 0.12369127571582794
+                    )
+                )
+            ]
         )
+    )
 
     public override func setUp() {
         super.setUp()
@@ -69,6 +87,7 @@ final class WeatherViewModelCurrentLocationTests: XCTestCase {
         XCTAssertEqual(viewModel.currentWeather?.pressure, expectedCurrentLocationWeatherDetail.pressure)
         XCTAssertEqual(viewModel.currentWeather?.humidity, expectedCurrentLocationWeatherDetail.humidity)
         XCTAssertEqual(viewModel.currentWeather?.maxTemperature, expectedCurrentLocationWeatherDetail.maxTemperature)
+        XCTAssertEqual(viewModel.currentWeather?.aqi, expectedCurrentLocationWeatherDetail.aqi)
     }
     
 }

@@ -39,8 +39,26 @@ final class WeatherViewModelCityTests: XCTestCase {
             sys: CurrentWeatherResponse.Sys(sunrise: 1731568648, sunset: 1731600763),
             rain: CurrentWeatherResponse.Rain(oneHour: 2.47),
             snow: CurrentWeatherResponse.Snow(oneHour: 1.10)
-            )
+            ),
+        pollution: AirPollutionResponse(
+            list: [
+                AirPollutionResponse.PollutionData(
+                    dt: 1605182400,
+                    main: AirPollutionResponse.PollutionData.Main(aqi: 4),
+                    components: AirPollutionResponse.PollutionData.Components(
+                        co: 100.94053649902344,
+                        no: 0.01877197064459324,
+                        no2: 0.7711350917816162,
+                        o3: 68.66455078125,
+                        so2: 0.6407499313354492,
+                        pm2Point5: 0.5,
+                        pm10: 0.540438711643219,
+                        nh3: 0.12369127571582794
+                    )
+                )
+            ]
         )
+    )
 
     public override func setUp() {
         super.setUp()
@@ -69,5 +87,6 @@ final class WeatherViewModelCityTests: XCTestCase {
         XCTAssertEqual(viewModel.currentWeather?.pressure, expectedLondonLocationWeatherDetail.pressure)
         XCTAssertEqual(viewModel.currentWeather?.humidity, expectedLondonLocationWeatherDetail.humidity)
         XCTAssertEqual(viewModel.currentWeather?.maxTemperature, expectedLondonLocationWeatherDetail.maxTemperature)
+        XCTAssertEqual(viewModel.currentWeather?.aqi, expectedLondonLocationWeatherDetail.aqi)        
     }
 }
