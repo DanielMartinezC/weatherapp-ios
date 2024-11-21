@@ -1,6 +1,6 @@
 # Weather App 🌦️  
 
-A sleek, modern SwiftUI weather app providing comprehensive weather information. Easily browse weather data for multiple locations, customize themes, and enjoy a smooth user experience—all while adhering to best development practices.  
+A sleek, modern SwiftUI weather app providing comprehensive weather information. Easily browse weather data for multiple locations, customize themes, and enjoy a smooth user experience—all while adhering to best development practices.
 
 ---
 
@@ -83,9 +83,16 @@ The app employs several well-known design patterns:
 
 ## 🧪 Running Tests  
 
+### Automatícally 
 1. Push changes to the `dev` branch.  
 2. Unit tests will automatically run via XCTest.  
-3. Review results in the Xcode report navigator.  
+3. Review results in the Github Actions Page.
+
+### Manually 
+1. Open project.
+2. Go to `Test Navigator` tab (cmd+6).  
+3. Run Tests.
+4. Review results in the Xcode report navigator.  
 
 ---
 
@@ -100,3 +107,6 @@ Currently, the app supports **English**. Adding additional languages is straight
 - Multi-language support.  
 - Additional themes and icon packs.  
 - Support for more platforms like iPad and macOS.
+
+
+**This app was built on Xcode Version 16.0 (16A242d).**
