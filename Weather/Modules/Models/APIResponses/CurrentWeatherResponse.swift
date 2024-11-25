@@ -44,15 +44,33 @@ struct CurrentWeatherResponse: Decodable {
         }
         
         enum Icon: String, Codable {
-          case clear = "Clear"
-          case clouds = "Clouds"
-          case rain = "Rain"
+            case clear = "Clear"
+            case clouds = "Clouds"
+            case rain = "Rain"
+            case mist = "Mist"
+            case snow = "Snow"
+            case thunderstorm = "Thunderstorm"
+            case drizzle = "Drizzle"
+            case atmosphere = "Atmosphere" // Generic for group 7xx like Mist, Smoke, etc.
             
-          var systemName: String {
+            var systemName: String {
                 switch self {
-                case .clear: return "sun.max"
-                case .clouds: return "cloud.fill"
-                case .rain: return "cloud.rain"
+                case .clear:
+                    return "sun.max"
+                case .clouds:
+                    return "cloud.fill"
+                case .rain:
+                    return "cloud.rain"
+                case .mist:
+                    return "cloud.fog"
+                case .snow:
+                    return "cloud.snow"
+                case .thunderstorm:
+                    return "cloud.bolt.rain"
+                case .drizzle:
+                    return "cloud.drizzle"
+                case .atmosphere:
+                    return "smoke.fill" // Example for atmospheric conditions
                 }
             }
         }
